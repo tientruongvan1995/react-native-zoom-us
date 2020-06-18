@@ -10,6 +10,7 @@ import com.facebook.react.bridge.LifecycleEventListener;
 
 import us.zoom.sdk.ZoomSDK;
 import us.zoom.sdk.ZoomError;
+import us.zoom.sdk.ZoomSDKInitParams;
 import us.zoom.sdk.ZoomSDKInitializeListener;
 
 import us.zoom.sdk.MeetingStatus;
@@ -59,7 +60,12 @@ public class RNZoomUsModule extends ReactContextBaseJavaModule implements ZoomSD
           @Override
           public void run() {
             ZoomSDK zoomSDK = ZoomSDK.getInstance();
-            zoomSDK.initialize(reactContext.getCurrentActivity(), appKey, appSecret, webDomain, RNZoomUsModule.this);
+            ZoomSDKInitParams initParams = new ZoomSDKInitParams();
+            initParams.appKey = appKey;
+            initParams.appSecret = appSecret;
+            initParams.enableLog = true;
+            initParams.domain=webDomain;
+            zoomSDK.initialize(reactContext.getCurrentActivity(), RNZoomUsModule.this, initParams);
           }
       });
     } catch (Exception ex) {
