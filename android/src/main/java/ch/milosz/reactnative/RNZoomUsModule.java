@@ -225,6 +225,15 @@ public class RNZoomUsModule extends ReactContextBaseJavaModule implements ZoomSD
     }
   }
 
+  @Override
+  public void onZoomAuthIdentityExpired() {
+    Log.i(TAG, "onZoomAuthIdentityExpired");
+    initializePromise.reject(
+            "ERR_ZOOM_IDENTITY_",
+            "Error: Auth Identity Expiredentication"
+    );
+  }
+
   private void registerListener() {
     Log.i(TAG, "registerListener");
     ZoomSDK zoomSDK = ZoomSDK.getInstance();
