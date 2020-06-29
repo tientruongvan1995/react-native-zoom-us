@@ -5,9 +5,10 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
+#import <React/RCTConvert.h>
+
 #import <MobileRTC/MobileRTC.h>
 
-@interface RNZoomUs : NSObject <RCTBridgeModule, MobileRTCAuthDelegate, MobileRTCMeetingServiceDelegate>
+@interface RNZoomUs : NSObject <RCTBridgeModule, MobileRTCAuthDelegate, MobileRTCMeetingServiceDelegate, MobileRTCWaitingRoomServiceDelegate, MobileRTCCustomizedUIMeetingDelegate>
 
 @end
-  
