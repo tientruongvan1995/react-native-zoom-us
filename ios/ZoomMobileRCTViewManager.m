@@ -12,21 +12,23 @@
 }
 
 RCT_EXPORT_MODULE(ZoomMobileRTCVideoView);
+
 - (UIView *)view
 {
-    MobileRTCVideoView *view = [[MobileRTCVideoView alloc] init];
-    [view setVideoAspect:MobileRTCVideoAspect_PanAndScan];
+    MobileRTCVideoView *view = [MobileRTCVideoView new];
     return view;
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(videoAspect, MobileRTCVideoAspect, MobileRTCVideoView) {
-    NSLog(@"videoAspect: %@", json);
+    NSLog(@"== ZoomMobileRCTViewManager videoAspect: %@", json);
     [view setVideoAspect: json];
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(userID, NSUInteger, MobileRTCVideoView) {
-    NSLog(@"userID: %@", json);
-    [view showAttendeeVideoWithUserID:json];
+    NSLog(@"== ZoomMobileRCTViewManager userID: %@", json);
+    [view stopAttendeeVideo];
+    NSUInteger uID = [json unsignedIntValue];
+    [view showAttendeeVideoWithUserID:uID];
 }
 
 @end
