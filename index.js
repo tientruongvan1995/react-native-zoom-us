@@ -68,16 +68,16 @@ class ZoomUs {
     onUserWaiting = callback => RNZoomEmitter.addListener(ZoomEvent.USER_WAITING, callback);
     onMeetingReady = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_READY, callback);
     onJoinConfirmed = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_JOIN_CONFIRMED, callback);
-    onViewInitialized = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_VIEW_INITIALIZED, callback);
-    onViewDestroyed = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_VIEW_DESTROYED, callback);
+    onMeetingViewInitialized = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_VIEW_INITIALIZED, callback);
+    onMeetingViewDestroyed = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_VIEW_DESTROYED, callback);
 
     offUserJoined = callback => RNZoomEmitter.removeListener(ZoomEvent.USER_JOIN, callback);
     offUserLeft = callback => RNZoomEmitter.removeListener(ZoomEvent.USER_LEAVE, callback);
     offUserWaiting = callback => RNZoomEmitter.removeListener(ZoomEvent.USER_WAITING, callback);
     offMeetingReady = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_READY, callback);
     offJoinConfirmed = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_JOIN_CONFIRMED, callback);
-    offViewInitialized = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_VIEW_INITIALIZED, callback);
-    offViewDestroyed = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_VIEW_DESTROYED, callback);
+    offMeetingViewInitialized = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_VIEW_INITIALIZED, callback);
+    offMeetingViewDestroyed = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_VIEW_DESTROYED, callback);
 }
 
 export default ZoomUs.instance;
