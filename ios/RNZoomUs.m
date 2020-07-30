@@ -230,12 +230,7 @@ RCT_EXPORT_METHOD(
     }
 }
 
-RCT_EXPORT_METHOD(releaseCallbacks:(RCTResponseSenderBlock)callback) {
-    initializePromiseResolve = nil;
-    initializePromiseReject = nil;
-    meetingPromiseResolve = nil;
-    meetingPromiseReject = nil;
-}
+// USER ACTION
 
 RCT_EXPORT_METHOD(
     getCurrentID:(RCTPromiseResolveBlock)resolve

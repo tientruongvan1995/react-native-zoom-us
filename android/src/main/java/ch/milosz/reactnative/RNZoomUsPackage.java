@@ -23,6 +23,11 @@ public class RNZoomUsPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-      return Collections.emptyList();
+      return Arrays.<ViewManager>asList(
+              new ZoomMobileRCTViewManager(),
+              new ZoomMobileRCTActiveVideoViewManager(),
+              new ZoomMobileRCTPreviewVideoViewManager(),
+              new ZoomMobileRCTActiveShareVideoViewManager()
+      );
     }
 }
