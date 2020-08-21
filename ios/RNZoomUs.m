@@ -41,7 +41,8 @@
         @"meeting_ready",
         @"meeting_join_confirmed",
         @"meeting_view_initialized",
-        @"meeting_view_destroyed"
+        @"meeting_view_destroyed",
+        @"meeting_chat_received"
     ];
 }
 
@@ -184,8 +185,8 @@ RCT_EXPORT_METHOD(
             }
 
             NSDictionary *paramDict = @{
-                    kMeetingParam_Username: displayName,
-                    kMeetingParam_MeetingNumber: meetingNo
+                kMeetingParam_Username: displayName,
+                kMeetingParam_MeetingNumber: meetingNo
             };
 
             MobileRTCMeetError joinMeetingResult = [ms joinMeetingWithDictionary:paramDict];
@@ -217,9 +218,9 @@ RCT_EXPORT_METHOD(
             }
 
             NSDictionary *paramDict = @{
-                    kMeetingParam_Username: displayName,
-                    kMeetingParam_MeetingNumber: meetingNo,
-                    kMeetingParam_MeetingPassword: password
+                kMeetingParam_Username: displayName,
+                kMeetingParam_MeetingNumber: meetingNo,
+                kMeetingParam_MeetingPassword: password
             };
 
             MobileRTCMeetError joinMeetingResult = [ms joinMeetingWithDictionary:paramDict];
@@ -318,6 +319,24 @@ RCT_EXPORT_METHOD(muteMyAudio:(RCTPromiseResolveBlock)resolve
             }
         }
         resolve(@"Success");
+    }
+}
+
+// ----- CHAT ACTIONS ----
+
+RCT_EXPORT_METHOD(sendMessage:(NSString *)message
+                  withResolve:(RCTPromiseResolveBlock)resolve
+                  withReject:(RCTPromiseRejectBlock)reject) {
+    MobileRTCMeetingService *ms = [[MobileRTC sharedRTC] getMeetingService];
+    if (ms) {
+        [ms sendChatToGroup:MobileRTCChatGroup_All WithContent:message];
+        resolve(@"Success");
+    } else {
+        reject(
+            @"ERR_ZOOM_SEND_MESSAGE",
+            [NSString stringWithFormat:@"Error: %@", @"Meeting Service Not Found"],
+            [NSError errorWithDomain:@"us.zoom.sdk" code:0 userInfo:nil]
+        );
     }
 }
 
@@ -452,6 +471,14 @@ RCT_EXPORT_METHOD(muteMyAudio:(RCTPromiseResolveBlock)resolve
 
 - (void)onWaitingRoomUserLeft:(NSUInteger)userId {
     NSLog(@"===== onWaitingRoomUserLeft %lu", userId);
+}
+
+// MARK: MESSGAGE
+- (void)onInMeetingChat:(NSString *)messageID {
+    NSLog(@"===== onInMeetingChat %@", messageID);
+    MobileRTCMeetingChat *chat = [[[MobileRTC sharedRTC] getMeetingService] meetingChatByID:messageID];
+    [self sendEventWithName:@"meeting_chat_received" body:chat];
+    NSLog(@"===== %@", chat);
 }
 
 // MARK: MobileRTCCustomizedUIMeetingDelegate

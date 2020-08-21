@@ -16,7 +16,8 @@ export const ZoomEvent = {
     MEETING_READY:"meeting_ready",
     MEETING_JOIN_CONFIRMED:"meeting_join_confirmed",
     MEETING_VIEW_INITIALIZED:"meeting_view_initialized",
-    MEETING_VIEW_DESTROYED:"meeting_view_destroyed"
+    MEETING_VIEW_DESTROYED:"meeting_view_destroyed",
+    MEETING_CHAT_RECEIVED:"meeting_chat_received",
 }
 
 class ZoomUs {
@@ -70,6 +71,7 @@ class ZoomUs {
     onJoinConfirmed = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_JOIN_CONFIRMED, callback);
     onMeetingViewInitialized = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_VIEW_INITIALIZED, callback);
     onMeetingViewDestroyed = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_VIEW_DESTROYED, callback);
+    onMeetingChatReceived = callback => RNZoomEmitter.addListener(ZoomEvent.MEETING_CHAT_RECEIVED, callback);
 
     offUserJoined = callback => RNZoomEmitter.removeListener(ZoomEvent.USER_JOIN, callback);
     offUserLeft = callback => RNZoomEmitter.removeListener(ZoomEvent.USER_LEAVE, callback);
@@ -78,6 +80,7 @@ class ZoomUs {
     offJoinConfirmed = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_JOIN_CONFIRMED, callback);
     offMeetingViewInitialized = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_VIEW_INITIALIZED, callback);
     offMeetingViewDestroyed = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_VIEW_DESTROYED, callback);
+    offMeetingChatReceived = callback => RNZoomEmitter.removeListener(ZoomEvent.MEETING_CHAT_RECEIVED, callback);
 }
 
 export default ZoomUs.instance;

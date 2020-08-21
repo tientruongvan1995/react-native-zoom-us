@@ -20,6 +20,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import java.util.List;
 
 import us.zoom.sdk.InMeetingAudioController;
+import us.zoom.sdk.InMeetingChatController;
 import us.zoom.sdk.InMeetingChatMessage;
 import us.zoom.sdk.InMeetingEventHandler;
 import us.zoom.sdk.InMeetingService;
@@ -377,6 +378,14 @@ public class RNZoomUsModule extends ReactContextBaseJavaModule implements ZoomSD
         promise.resolve(true);
     }
 
+    // ----- CHAT ACTIONS ----
+    @ReactMethod
+    public void sendMessage(String message, Promise promise) {
+        InMeetingChatController ctrl = ZoomSDK.getInstance().getInMeetingService().getInMeetingChatController();
+        ctrl.sendChatToGroup(InMeetingChatController.MobileRTCChatGroup.MobileRTCChatGroup_All, message);
+        promise.resolve(true);
+    }
+
     // ----- EVENTS ----
 
     @Override
@@ -603,7 +612,8 @@ public class RNZoomUsModule extends ReactContextBaseJavaModule implements ZoomSD
 
     @Override
     public void onChatMessageReceived(InMeetingChatMessage inMeetingChatMessage) {
-
+        Log.i(TAG, "onChatMessageReceived: " + inMeetingChatMessage);
+        sendEvent("meeting_chat_received", inMeetingChatMessage);
     }
 
     @Override
