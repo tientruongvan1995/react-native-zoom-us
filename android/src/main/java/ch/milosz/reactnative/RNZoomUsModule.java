@@ -1,8 +1,11 @@
 package ch.milosz.reactnative;
 
 import android.Manifest;
+import android.app.Service;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
