@@ -1,5 +1,5 @@
 
-import { NativeEventEmitter, NativeModules, requireNativeComponent } from 'react-native';
+import { NativeEventEmitter, NativeModules, Platform, requireNativeComponent } from 'react-native';
 
 const { RNZoomUs } = NativeModules;
 const RNZoomEmitter = new NativeEventEmitter(RNZoomUs);
@@ -43,6 +43,8 @@ class ZoomUs {
     // ----- VIDEO ACTIONS ----
 
     pinVideo = id => RNZoomUs.pinVideo(id); // pin to actived video
+
+    checkVideoRotation = id => Platform.OS === 'android' ? RNZoomUs.checkVideoRotation() : () => {};
 
     toggleMuteMyVideo = () => RNZoomUs.muteMyVideo();
 
