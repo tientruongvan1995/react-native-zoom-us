@@ -343,6 +343,14 @@ public class RNZoomUsModule extends ReactContextBaseJavaModule implements ZoomSD
     }
 
     @ReactMethod
+    public void checkVideoRotation() {
+        Display display = ((WindowManager) reactContext.getCurrentActivity().getSystemService(Service.WINDOW_SERVICE)).getDefaultDisplay();
+        int displayRotation = display.getRotation();
+        InMeetingVideoController controller = ZoomSDK.getInstance().getInMeetingService().getInMeetingVideoController();
+        controller.rotateMyVideo(displayRotation);
+    }
+
+    @ReactMethod
     public void muteMyVideo(Promise promise) {
         InMeetingVideoController ctrl = ZoomSDK.getInstance().getInMeetingService().getInMeetingVideoController();
         boolean isMuted = ctrl.isMyVideoMuted();
