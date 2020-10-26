@@ -4,8 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -14,10 +12,9 @@ import us.zoom.sdk.MobileRTCVideoUnitRenderInfo;
 import us.zoom.sdk.MobileRTCVideoView;
 
 public class ZoomMobileRCTActiveShareVideoViewManager extends SimpleViewManager<MobileRTCVideoView> {
-    public static final String TAG = "RNZoomUs";
     public static final String REACT_CLASS = "ZoomMobileRCTActiveShareVideoView";
     ThemedReactContext mCallerContext;
-    MobileRTCVideoUnitRenderInfo info = new MobileRTCVideoUnitRenderInfo(0, 0, 100, 100);
+    MobileRTCVideoUnitRenderInfo info;
     boolean isRendered = false;
 
     @NonNull
@@ -30,6 +27,7 @@ public class ZoomMobileRCTActiveShareVideoViewManager extends SimpleViewManager<
     @Override
     protected MobileRTCVideoView createViewInstance(@NonNull ThemedReactContext reactContext) {
         mCallerContext = reactContext;
+        info = new MobileRTCVideoUnitRenderInfo(0, 0, 100, 100);
         return new MobileRTCVideoView(reactContext.getCurrentActivity());
     }
 
@@ -41,7 +39,8 @@ public class ZoomMobileRCTActiveShareVideoViewManager extends SimpleViewManager<
 
     @ReactProp(name = "userID")
     public void setUserID(MobileRTCVideoView view, int userID) {
-        Log.i("RNZoomUs", "SharedVideo setUserID: " + userID);
+        Log.i("RNZoomUs", "ActiveSharedVideo setUserID: " + userID);
+
         if (userID == 0) return;
 
         view.getVideoViewManager().removeAttendeeVideoUnit(userID);
